@@ -13,7 +13,6 @@ stages:
 
       pool:
         vmImage: 'ubuntu-latest'
-        demands: npm
 
       steps:
       - task: UseNode@1
