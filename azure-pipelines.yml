@@ -17,10 +17,8 @@ stages:
 
       steps:
       - task: UseNode@1
-        displayName: 'Use Node version'
         inputs:
           version: 12.x
-        enabled: false
 
       - task: Npm@1
         displayName: 'npm ci'
