@@ -8,12 +8,60 @@ trigger:
 
 pool:
   vmImage: 'ubuntu-latest'
+  demands: npm
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- task: UseNode@1
+  displayName: 'Use Node version'
+  inputs:
+    version: 12.x
+  enabled: false
 
-- script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+- task: Npm@1
+  displayName: 'npm ci'
+  inputs:
+    command: ci
+    verbose: false
+
+- task: Npm@1
+  displayName: 'npm build'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'run build-deploy'
+
+- task: Npm@1
+  displayName: 'npm ci --production'
+  inputs:
+    command: custom
+    verbose: false
+    customCommand: 'ci --production'
+
+- task: DeleteFiles@1
+  displayName: 'Delete files from '
+  inputs:
+    Contents: |
+     .*
+     !(dist|views|node_modules|package-lock.json|package.json)
+
+- task: ArchiveFiles@1
+  displayName: 'Archive files '
+  inputs:
+    rootFolder: '$(System.DefaultWorkingDirectory)'
+    includeRootFolder: false
+
+- task: CopyFiles@2
+  displayName: 'Copy File to: $(TargetFolder)'
+  inputs:
+    SourceFolder: '$(Build.ArtifactStagingDirectory)'
+    Contents: '$(Build.BuildId).zip'
+    TargetFolder: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
+    CleanTargetFolder: true
+
+- task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: littlefoot-web'
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
+    ArtifactName: 'littlefoot-web'
+
+
