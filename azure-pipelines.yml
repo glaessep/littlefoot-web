@@ -46,8 +46,8 @@ stages:
         displayName: 'Delete files from '
         inputs:
           Contents: |
-          .*
-          !(dist|views|node_modules|package-lock.json|package.json)
+            .*
+            !(dist|views|node_modules|package-lock.json|package.json)
 
       - task: ArchiveFiles@1
         displayName: 'Archive files '
