@@ -42,25 +42,9 @@ stages:
       - script: |
           cd $(System.DefaultWorkingDirectory)
           pwd
-          rm -rfv src .vscode .e* .n* copystaticassets.ts tsconfig* 
-        displayName: 'Delete Files...'
-
-      - script: |
-          cd $(System.DefaultWorkingDirectory)
-          pwd
           rm -rfv $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
           zip -r $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip dist node_modules package.json
         displayName: 'Archive Files'
-
-      - task: ArchiveFiles@1
-        enabled: false
-        displayName: 'Archive files '
-        inputs:
-          rootFolder: '$(System.DefaultWorkingDirectory)'
-          includeRootFolder: false
-          archiveType: 'default'
-          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
-          replaceExistingArchive: true
 
       - task: PublishBuildArtifacts@1
         displayName: 'Publish Artifact: littlefoot-web'
@@ -68,5 +52,3 @@ stages:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)'
           ArtifactName: 'littlefoot-web'
           publishLocation: 'Container'
-
-
