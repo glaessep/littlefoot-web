@@ -40,23 +40,19 @@ stages:
           customCommand: 'ci --production'
 
       - script: |
-          rm -rfv $(System.DefaultWorkingDirectory)/src 
+          cd $(System.DefaultWorkingDirectory)
+          pwd
+          rm -rfv src .* copystaticassets.ts tsconfig* 
         displayName: 'Delete Files...'
-
-
-      - task: DeleteFiles@1
-        enabled: false
-        displayName: 'Delete files'
-        inputs:
-          SourceFolder: $(System.DefaultWorkingDirectory)
-          Contents: 'src'
-
 
       - task: ArchiveFiles@1
         displayName: 'Archive files '
         inputs:
           rootFolder: '$(System.DefaultWorkingDirectory)'
           includeRootFolder: false
+          archiveType: 'default'
+          archiveFile: '$(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip'
+          replaceExistingArchive: true
 
       - task: CopyFiles@2
         displayName: 'Copy File to: $(TargetFolder)'
@@ -71,5 +67,6 @@ stages:
         inputs:
           PathtoPublish: '$(Build.ArtifactStagingDirectory)\ArtifactsToBePublished'
           ArtifactName: 'littlefoot-web'
+          publishLocation: 'Container'
 
 
