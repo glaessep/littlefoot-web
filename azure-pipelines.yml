@@ -40,7 +40,7 @@ stages:
           customCommand: 'ci --production'
 
       - script: |
-          npx rimraf src copyStaticAssets.ts .* tsconfig.*
+          npx rimraf $(System.DefaultWorkingDirectory)/src 
         displayName: 'Delete Files...'
 
 
