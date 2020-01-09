@@ -42,7 +42,7 @@ stages:
       - script: |
           cd $(System.DefaultWorkingDirectory)
           pwd
-          rm -rfv src .* copystaticassets.ts tsconfig* 
+          rm -rfv src .vscode .e* .n* copystaticassets.ts tsconfig* 
         displayName: 'Delete Files...'
 
       - task: ArchiveFiles@1
