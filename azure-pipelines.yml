@@ -40,7 +40,7 @@ stages:
           customCommand: 'ci --production'
 
       - script: |
-          npx rimraf $(System.DefaultWorkingDirectory)/src 
+          rm -rfv $(System.DefaultWorkingDirectory)/src 
         displayName: 'Delete Files...'
 
 
