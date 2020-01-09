@@ -44,6 +44,18 @@ stages:
         displayName: 'Delete files'
         inputs:
           Contents: |
+            .vscode
+            src
+            copyStaticAssets.ts
+            .npm*
+            tsconfig.*
+
+
+      - task: DeleteFiles@1
+        enabled: false
+        displayName: 'Delete files'
+        inputs:
+          Contents: |
             !(dist|views|node_modules|package-lock.json|package.json)
 
       - task: ArchiveFiles@1
