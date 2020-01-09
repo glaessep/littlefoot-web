@@ -13,7 +13,6 @@ stages:
 
       pool:
         vmImage: 'ubuntu-latest'
-        demands: zip
 
       steps:
       - task: UseNode@1
