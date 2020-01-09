@@ -75,6 +75,6 @@ stages:
           azureSubscription: 'Littlefoot subscription (f6b26989-2d01-477a-9661-d3a4521d1a90)'
           appType: 'webAppLinux'
           WebAppName: 'littlefoot'
-          packageForLinux: '$(System.ArtifactsDirectory)*.zip'
+          packageForLinux: '$(System.ArtifactsDirectory)/littlefoot-web/*.zip'
           RuntimeStack: 'NODE|12-lts'
           StartupCommand: 'npm run start'
