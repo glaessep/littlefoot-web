@@ -13,6 +13,7 @@ stages:
 
       pool:
         vmImage: 'ubuntu-latest'
+        demands: zip
 
       steps:
       - task: UseNode@1
@@ -45,7 +46,15 @@ stages:
           rm -rfv src .vscode .e* .n* copystaticassets.ts tsconfig* 
         displayName: 'Delete Files...'
 
+      - script: |
+          cd $(System.DefaultWorkingDirectory)
+          pwd
+          rm -rfv $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip
+          zip -r $(Build.ArtifactStagingDirectory)/$(Build.BuildId).zip dist node_modules package.json
+        displayName: 'Archive Files'
+
       - task: ArchiveFiles@1
+        enabled: false
         displayName: 'Archive files '
         inputs:
           rootFolder: '$(System.DefaultWorkingDirectory)'
