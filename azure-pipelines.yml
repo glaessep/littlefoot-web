@@ -23,20 +23,20 @@ stages:
         displayName: 'npm install'
         inputs:
           command: install
-          verbose: true
+          verbose: false
 
       - task: Npm@1
         displayName: 'npm build'
         inputs:
           command: custom
-          verbose: true
+          verbose: false
           customCommand: 'run build-deploy'
 
       - task: Npm@1
         displayName: 'npm install --production'
         inputs:
           command: custom
-          verbose: true
+          verbose: false
           customCommand: 'install --production'
 
       - script: |
