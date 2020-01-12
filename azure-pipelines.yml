@@ -70,7 +70,7 @@ stages:
 
       - script: |
           cd $(System.ArtifactsDirectory)
-          ls -l
+          ls -Rl
 
       - task: AzureRmWebAppDeployment@4
         displayName: 'Deploy Azure App Service'
