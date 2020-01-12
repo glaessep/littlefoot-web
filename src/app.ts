@@ -2,9 +2,12 @@ import express from 'express';
 import helmet from 'helmet';
 import compression from 'compression'; // compresses requests
 import path from 'path';
+import * as sourceMaps from 'source-map-support';
 
 import { indexRouter } from './routers';
 import { removeWww } from './utils/redirectToUrl';
+
+sourceMaps.install({ environment: 'node' });
 
 // Create Express server
 const app = express();
