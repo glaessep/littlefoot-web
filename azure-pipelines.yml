@@ -68,6 +68,10 @@ stages:
           artifactName: 'littlefoot-web'
           downloadPath: '$(System.ArtifactsDirectory)'
 
+      - script: |
+          cd $(System.ArtifactsDirectory)
+          ls -l
+
       - task: AzureRmWebAppDeployment@4
         displayName: 'Deploy Azure App Service'
         inputs:
